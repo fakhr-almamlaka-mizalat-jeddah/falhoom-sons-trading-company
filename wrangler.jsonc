@@ -2,7 +2,6 @@
   "name": "falhoom-sons-trading-company",
   "main": "worker.js",
   "compatibility_date": "2025-11-01",
-  "kv_namespaces": [{ "binding": "REVIEWS" }],
   "assets": {
     "directory": "./",
     "binding": "ASSETS",
