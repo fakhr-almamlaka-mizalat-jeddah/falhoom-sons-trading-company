@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Cinzel:wght@700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Noto+Kufi+Arabic:wght@500;700;800&display=swap");
 :root{--navy:#2b3a8f;--deep:#0d1654;--or:#ee7d3b;--bg:#f4f6fc;--cd:#fff;--tx:#12163a;--mu:#59608a;--ln:#dfe3f3;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#080c26;--cd:#121a47;--tx:#eef0ff;--mu:#a9afd6;--ln:#25306b;color-scheme:dark}}
@@ -131,3 +132,17 @@ h1,h2,h3,h4,.btn,nav a,.tag,.dd>button,.stat b,.lbt{font-family:"Noto Kufi Arabi
 .vph{position:absolute;inset:0;display:grid;place-items:center;font-size:56px;color:#fff;pointer-events:none;text-shadow:0 4px 18px #000}.vbox.pl .vph{display:none}
 .vbox.bad:after{content:"الفيديو غير متاح حالياً";position:absolute;inset:auto 0 10px;text-align:center;color:#fff}
 .vcd figcaption{padding:10px 6px 4px;font-weight:800;color:#c2410c}
+.hero .bg i{filter:none;transform:none;opacity:0;transition:opacity 1.4s ease;background-size:cover;background-position:center}
+.hero .bg i.on{opacity:1;filter:none}
+.hero .bg i.e0.on{animation:kz1 9s ease-out forwards}.hero .bg i.e1.on{animation:kz2 9s ease-out forwards}.hero .bg i.e2.on{animation:kz3 9s ease-out forwards}.hero .bg i.e3.on{animation:kz4 9s ease-out forwards}
+@keyframes kz1{from{transform:scale(1.2);filter:blur(8px) saturate(1.3)}to{transform:scale(1);filter:blur(0) saturate(1.1)}}
+@keyframes kz2{from{transform:scale(1) translateX(-3%)}to{transform:scale(1.12) translateX(3%)}}
+@keyframes kz3{from{transform:scale(1.15) translateY(3%)}to{transform:scale(1.02) translateY(-2%)}}
+@keyframes kz4{from{clip-path:inset(0 100% 0 0);transform:scale(1.1)}to{clip-path:inset(0);transform:scale(1)}}
+.hero:before{background:linear-gradient(100deg,#0d1654e6 8%,#0d165499 52%,#0d165440 100%)}
+.hero h1,.hero .lead{text-shadow:0 2px 16px #000c}#hh,#hl{text-align:right}
+.pgb{position:absolute;bottom:0;inset-inline:0;height:4px;background:#ffffff22;z-index:3}.pgb i{display:block;height:100%;background:var(--or);width:0;animation:pgx 8s linear infinite}@keyframes pgx{to{width:100%}}
+.fsn{display:flex;gap:12px;align-items:center;margin-top:22px}.fsn .btn{flex:1;white-space:nowrap;text-align:center}.fsn .btn:disabled{cursor:not-allowed}
+.vbox{aspect-ratio:var(--vr,1.7778);width:min(100%,calc(78vh * var(--vr,1.7778)));margin-inline:auto}.vbox video{object-fit:cover}
+.cred{font-size:12px;margin-top:10px;opacity:.95;letter-spacing:.4px}.cred .cr1{font-family:"Aref Ruqaa",serif;font-size:13.5px;color:#cfd8ff}.cred .sl{color:var(--or);margin:0 4px}
+.cred b{font-family:Cinzel,serif;font-size:13px;letter-spacing:3px;color:#ffb27a;font-weight:700;text-shadow:0 0 12px #ee7d3b66}.cred .cw{font-size:14px;margin-inline-start:6px}
