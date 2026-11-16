@@ -30,7 +30,7 @@ lh:()=>`<section id="s-gallery"><span class="tag rv">معرض الصور</span><
 rc:p=>`<div class="rcs">${RC.filter(r=>r[0]==p).map(([pi,t,tm,sv,ing,stp])=>`<details class="rcd rv"><summary><b>${t}</b><span class="tag">⏱ ${tm}</span><span class="tag">👤 ${sv}</span></summary><div class="rcb"><h4>المقادير</h4><ul>${ing.split("،").map(x=>`<li>${x}</li>`).join("")}</ul><h4>طريقة التحضير</h4><ol>${stp.split("|").map(x=>`<li>${x}</li>`).join("")}</ol><a class="more" href="${H(["qasr","shihr","wesal","tea"][pi])}">صفحة ${B[pi][3]} ←</a></div></details>`).join("")}</div>`,
 so:()=>`<section><span class="tag rv">منصاتنا</span><h2 class="rv" style="margin-top:6px">تابعنا على منصات التواصل</h2><div class="soc big rv">${SOC}</div></section>`,
 st:a=>`<ol class="steps rv">${a.map(x=>`<li>${x}</li>`).join("")}</ol>`,
-sp:([t,x,bt,h,i])=>`<div class="split"><div class="rv"><h2 style="margin-top:0">${t}</h2><p class="mu">${x}</p><a class="btn" href="${H(h)}">${bt}</a></div><div class="art rv tilt"><img src="${TH(L(PI[i]))}" data-full="${L(PI[i])}" ${FB} loading="lazy" alt="" class="pi" style="height:300px"></div></div>`,
+sp:([t,x,bt,h,i])=>`<div class="split"><div class="rv"><h2 style="margin-top:0">${t}</h2><p class="mu">${x}</p><a class="btn" href="${H(h)}">${bt}</a></div><div class="art rv tilt"><img src="${TH(L(QI[i]))}" data-full="${L(QI[i])}" ${FB} loading="lazy" alt="" class="pi" style="height:300px"></div></div>`,
 m:r=>{const h=(r?MB:MA).map(s=>`<figure class="ft"><img data-lb loading="lazy" decoding="async" src="${TH(L(s))}" data-full="${L(s)}" ${FB} alt="منتجات أولاد فلهوم"></figure>`).join("");return`<div class="mq ${r?"r":""}"><div>${h}${h}${h}${h}</div></div>`},
 b:([t,x])=>`<div class="band rv"><div><h2>${t}</h2>${x}</div>${Q}</div>`,
 fm:()=>`<form class="card" id="ap"><div class="prog"><i class="on"></i><i></i><i></i><i></i></div>
@@ -187,6 +187,19 @@ const txt=`السلام عليكم ورحمة الله وبركاته 🌟\nأر
 nx.disabled=true;m.textContent="جارٍ إرسال طلبك...";try{await fetch("/api/quote",{method:"POST",body:fd})}catch(e){}
 try{sessionStorage.setItem("fwa",url)}catch(e){open(url,"_blank")}location.href="thanks.html?t=q"};
 sw()}
+const QI=["alqasr-tuna/112",PI[1],PI[2],PI[3]];
+function initAI(){const b=document.createElement("button");b.className="aib";b.setAttribute("aria-label","مساعد فلهوم الذكي");b.innerHTML=`<span class="aic">✨</span><b>اسأل مساعد فلهوم</b>`;
+const p=document.createElement("div");p.className="aip";p.hidden=true;
+p.innerHTML=`<div class="aih"><div><b>✨ مساعد فلهوم الذكي</b><small>أجيب عن منتجاتنا وخدماتنا وشركتنا</small></div><button type="button" class="aix" aria-label="إغلاق">✕</button></div><div class="aim" id="aim"></div><div class="aiq" id="aiq"></div><form class="aif" id="aif"><input id="aii" maxlength="400" placeholder="اكتب سؤالك هنا..." autocomplete="off"><button class="aid" aria-label="إرسال">➤</button></form><p class="ain">مساعد آلي يجيب عن المنتجات والخدمات فقط، ولا يطلب بياناتك الشخصية أو المالية. للطلبات والأسعار تواصل مع المبيعات: <a data-ph="967783418555" href="#">+967783418555</a></p>`;
+document.body.append(b,p);const M=$("#aim"),Hs=[];let busy=0;
+const add=(r,t)=>{const d=document.createElement("div");d.className="ai"+(r=="u"?" me":"");d.textContent=t;M.append(d);M.scrollTop=M.scrollHeight;return d};
+$("#aiq").innerHTML=["ما المنتجات التي تقدمونها؟","كيف أطلب عرض سعر؟","هل توصلون إلى محافظتي؟","ما ساعات العمل؟","ما فوائد التونة والشاي؟"].map(q=>`<button type="button">${q}</button>`).join("");
+const close=()=>{p.hidden=true;b.classList.remove("on")},open=()=>{p.hidden=false;b.classList.add("on");if(!M.children.length)add("a","أهلاً بك في شركة أولاد فلهوم 🌟\nأنا المساعد الآلي؛ أجيبك عن منتجاتنا (تونة القصر وبحر الشحر ووصال وشاي وصال) وخدماتنا وشركتنا. كيف أخدمك؟");$("#aii").focus()};
+b.onclick=()=>p.hidden?open():close();$(".aix",p).onclick=close;
+const send=async q=>{q=q.trim();if(busy||!q)return;busy=1;$("#aiq").hidden=true;add("u",q);Hs.push({role:"user",content:q});const w=add("a","...");w.classList.add("typ");let t="تعذّر الرد الآن، يمكنك التواصل مع فريقنا عبر واتساب.";
+try{const r=await fetch("/api/chat",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({messages:Hs.slice(-8)})}),j=await r.json();if(j.reply)t=j.reply}catch(e){}
+w.classList.remove("typ");w.textContent=t;Hs.push({role:"assistant",content:t});busy=0;M.scrollTop=M.scrollHeight};
+$("#aif").onsubmit=e=>{e.preventDefault();const i=$("#aii"),q=i.value;i.value="";send(q)};$$("#aiq button").forEach(x=>x.onclick=()=>send(x.textContent))}
 let iv,iv2,iv3;
 function route(){let k=document.body.dataset.p,sc=location.hash.slice(1);if(!C[k])k="home";const d=C[k],o=P.findIndex(p=>p[0]==k);PK=k;
 $("#nv").innerHTML=`<a href="index.html" class="${k=="home"?"on":""}">الرئيسية</a><div class="dd"><button>منتجاتنا ▾</button><div class="dm">${["qasr","shihr","wesal","tea","recipes"].map(x=>`<a href="${H(x)}">${T(x)}</a>`).join("")}</div></div><div class="dd"><button>المزيد ▾</button><div class="dm"><a href="index.html#s-gallery">أعمالنا</a><a href="index.html#s-reviews">آراء العملاء</a><a href="index.html#s-faq">الأسئلة الشائعة</a><a href="careers.html">التوظيف</a><a href="index.html#s-contact">تواصل معنا</a></div></div><button class="btn qh" onclick="dq.showModal()">طلب عرض سعر</button>`;
@@ -204,4 +217,4 @@ initForm();initReviews();initVideos();
 }
 $("#f1").innerHTML="<b>منتجاتنا</b>"+["qasr","shihr","wesal","tea","recipes"].map(h=>`<a href="${H(h)}">${T(h)}</a>`).join("");$("#f2").innerHTML="<b>الشركة</b><a href=\"index.html\">الرئيسية</a><a href=\"index.html#s-about\">من نحن</a><a href=\"index.html#s-reviews\">آراء العملاء</a><a href=\"index.html#s-faq\">الأسئلة الشائعة</a><a href=\"careers.html\">التوظيف</a><a href=\"index.html#s-contact\">تواصل معنا</a>";
 
-route();document.addEventListener("click",e=>{const b=e.target.closest("#gm");if(b){const[d,n,ns]=G[+b.dataset.i];$("#gw").innerHTML=lanes(ns.map(x=>I(d,x)),n);b.remove();initLanes()}});initLanes();initLb();initQuote();initMore();$("#so").innerHTML=SOC;initFab();initFoot();
+route();document.addEventListener("click",e=>{const b=e.target.closest("#gm");if(b){const[d,n,ns]=G[+b.dataset.i];$("#gw").innerHTML=lanes(ns.map(x=>I(d,x)),n);b.remove();initLanes()}});initLanes();initLb();initQuote();initMore();$("#so").innerHTML=SOC;initFab();initAI();initFoot();
