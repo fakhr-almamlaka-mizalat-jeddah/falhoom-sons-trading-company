@@ -221,3 +221,13 @@ h1,h2,h3,h4,.btn,nav a,.tag,.dd>button,.stat b,.lbt{font-family:"Noto Kufi Arabi
 .aif{display:flex;gap:8px;padding:8px 12px;border-top:1px solid #eadfcb;background:#fff}.aif input{flex:1;border:1.5px solid #e6dcc8;border-radius:20px;padding:8px 14px;background:#faf6ee;color:#1a1f4b}
 .aid{width:44px;height:44px;border-radius:50%;border:0;background:linear-gradient(135deg,#7c3aed,#2b3a8f);color:#fff;font-size:18px;cursor:pointer}
 .ain{font-size:11px;color:#6b7090;padding:4px 12px 8px;background:#fff;line-height:1.5}.ain a{color:#c2410c;font-weight:700}
+dialog:not(.lb){margin:auto}
+#dq{position:fixed;inset:0;margin:auto;width:min(520px,96vw);max-width:96vw;height:fit-content;max-height:calc(var(--vh,1vh)*100 - 16px)}
+.qw{max-height:calc(var(--vh,1vh)*100 - 16px)}
+.qin{max-height:calc(var(--vh,1vh)*100 - 22px)}
+@media(max-height:900px){.qch{display:none}}
+.aip{height:min(560px,calc(var(--vh,1vh)*100 - 120px))}
+@media(max-width:780px){.nav{position:relative}.dd{position:static}.dm{inset-inline-start:10px;inset-inline-end:10px;width:auto;min-width:0}}
+#qf{display:flex;flex-direction:column;flex:1;min-height:0;margin:0}
+.qft{flex:none}
+.qty{flex-wrap:nowrap;gap:4px}.qty input{width:40px;padding:3px}.qty button{width:26px;height:26px;font-size:16px}.qty small{font-size:11px;white-space:nowrap}
