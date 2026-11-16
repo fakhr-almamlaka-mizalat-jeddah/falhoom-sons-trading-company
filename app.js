@@ -1,3 +1,4 @@
+(()=>{const sv=()=>document.documentElement.style.setProperty("--vh",((window.visualViewport?visualViewport.height:innerHeight)/100)+"px");sv();["resize","orientationchange"].forEach(e=>addEventListener(e,sv));if(window.visualViewport)visualViewport.addEventListener("resize",sv);if(window.HTMLDialogElement){const sm=HTMLDialogElement.prototype.showModal;HTMLDialogElement.prototype.showModal=function(){sv();return sm.call(this)}}addEventListener("scroll",()=>{if(scrollX)scrollTo(0,scrollY)},{passive:true})})();
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const B=[["القصر","#222","#d4a017","تونة القصر","فخامة تليق بمائدتك وتناسب الوجبات الراقية."],["بحر الشحر","#1e3a9e","#1a8a4a","تونة بحر الشحر","لحم تونة بالزيت النباتي من مصنع الجزيرة العربية – الشحر، حضرموت."],["وصال","#e8c21a","#ee7d3b","تونة وصال","طعم غني للوجبات السريعة والوصفات المنزلية."],["شاي","#8a1c1c","#d6542b","شاي وصال","شاي فاخر بلون ونكهة أصيلين لكل مجلس."]];
 const can=(i,s=120)=>{const[n,a,b]=B[i];return`<svg width="${s}" height="${s*1.1}" viewBox="0 0 120 132"><ellipse cx="60" cy="116" rx="46" ry="11" fill="#0005"/><rect x="16" y="26" width="88" height="86" rx="10" fill="${a}"/><rect x="16" y="52" width="88" height="34" fill="${b}"/><ellipse cx="60" cy="26" rx="44" ry="12" fill="#e8ecf5"/><ellipse cx="60" cy="26" rx="34" ry="8" fill="#c5cbe0"/><text x="60" y="77" text-anchor="middle" font-family="Cairo" font-weight="900" font-size="22" fill="#fff">${n}</text></svg>`};
@@ -218,3 +219,6 @@ initForm();initReviews();initVideos();
 $("#f1").innerHTML="<b>منتجاتنا</b>"+["qasr","shihr","wesal","tea","recipes"].map(h=>`<a href="${H(h)}">${T(h)}</a>`).join("");$("#f2").innerHTML="<b>الشركة</b><a href=\"index.html\">الرئيسية</a><a href=\"index.html#s-about\">من نحن</a><a href=\"index.html#s-reviews\">آراء العملاء</a><a href=\"index.html#s-faq\">الأسئلة الشائعة</a><a href=\"careers.html\">التوظيف</a><a href=\"index.html#s-contact\">تواصل معنا</a>";
 
 route();document.addEventListener("click",e=>{const b=e.target.closest("#gm");if(b){const[d,n,ns]=G[+b.dataset.i];$("#gw").innerHTML=lanes(ns.map(x=>I(d,x)),n);b.remove();initLanes()}});initLanes();initLb();initQuote();initMore();$("#so").innerHTML=SOC;initFab();initAI();initFoot();
+
+
+
