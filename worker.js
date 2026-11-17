@@ -75,6 +75,28 @@ if(/\d[\d\s-]{12,}\d/.test(t)||/(بطاق|ائتمان|فيزا|ماستر|cvv|�
 const loc=localAnswer(t,true);if(loc)return J({reply:loc});
 if(!env.AI)return J({reply:localAnswer(t,false)});
 try{const r=await env.AI.run("@cf/meta/llama-3.1-8b-instruct",{messages:[{role:"system",content:SYS},...ms],max_tokens:400,temperature:.3});const out=String(r.response||"").trim();if(!out)throw 0;return J({reply:out.slice(0,1200)})}catch(e){return J({reply:localAnswer(t,false)})}}
+const SITE="أولاد فلهوم للتجارة";
+const OGM={
+"/":{t:"شركة أولاد فلهوم للتجارة | التونة الفاخرة وشاي وصال",d:"وكيل وموزّع منتجات التونة (القصر، بحر الشحر، وصال) وشاي وصال الفاخر في اليمن. 500 نقطة بيع و50 سيارة توزيع تغطي كامل المحافظات.",i:"main/flag-falhoom-sons-trading-company7",c:"summary"},
+"/qasr":{t:"تونة القصر | أولاد فلهوم للتجارة",d:"تونة القصر الفاخرة للموائد الراقية والضيافة: صور ووصفات وطلب عرض سعر بالجملة.",i:"alqasr-tuna/falhoom-sons-trading-company110"},
+"/shihr":{t:"تونة بحر الشحر | أولاد فلهوم للتجارة",d:"لحم تونة بالزيت النباتي من مصنع الجزيرة العربية بالشحر – حضرموت: انتعاش بطعم البحر.",i:"alshihr-tuna/falhoom-sons-trading-company111"},
+"/wesal":{t:"تونة وصال | أولاد فلهوم للتجارة",d:"تونة وصال لحم تونة بالزيت النباتي: طعم غني، ووصفات سريعة، وطلب بالجملة.",i:"wesal-tuna/falhoom-sons-trading-company10"},
+"/tea":{t:"شاي وصال الفاخر | أولاد فلهوم للتجارة",d:"شاي وصال الفاخر بنكهة متوازنة ولون غني للضيافة والمذاكرة والعمل.",i:"wesal-tea/falhoom-sons-trading-company106"},
+"/recipes":{t:"وصفات التونة والشاي | أولاد فلهوم للتجارة",d:"وصفات مكتوبة بالمقادير والخطوات مع فيديوهات: مكرونة بالتونة، أرز، سلطات، فطائر، وشاي بالنعناع.",i:"wesal-tuna/falhoom-sons-trading-company10"},
+"/careers":{t:"وظائف أولاد فلهوم للتجارة",d:"انضم إلى فريق يزيد على 100 موظف. قدّم الآن وأرفق سيرتك الذاتية بسهولة.",i:"main/falhoom-sons-trading-company105"},
+"/contact":{t:"تواصل مع أولاد فلهوم للتجارة",d:"سيئون – حضرموت – اليمن. المبيعات: +967783418555 • الرئيسي: +967783444583.",i:"wesal-tuna/falhoom-sons-trading-company55"},
+"/thanks":{t:"شكراً لثقتك بفلهوم 🌟",d:"تم استلام طلبك بنجاح وسيتواصل معك فريقنا في أقرب وقت.",i:"main/falhoom-sons-trading-company42"}};
+const OGC=new Map();
+async function ogImg(env,origin,key){const c=OGC.get(key);if(c)return origin+c;
+for(const b of["images/med/","images/thumbs/","images/"]){const p="/"+b+key+".webp";try{const r=await env.ASSETS.fetch(new Request(origin+p,{method:"HEAD"}));if(r.ok){OGC.set(key,p);return origin+p}}catch(e){}}
+return origin+"/images/"+key+".webp"}
+const oesc=s=>String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
+async function page(request,env,u){const res=await env.ASSETS.fetch(request);
+if(res.status!==200||!(res.headers.get("content-type")||"").includes("text/html"))return res;
+const k=u.pathname.replace(/\.html$/,"").replace(/\/index$/,"/")||"/",m=OGM[k];if(!m)return res;
+const img=await ogImg(env,u.origin,m.i),url=u.origin+(k==="/"?"/":k),e=oesc,
+tags=`<meta property="og:type" content="website"><meta property="og:site_name" content="${e(SITE)}"><meta property="og:locale" content="ar_AR"><meta property="og:title" content="${e(m.t)}"><meta property="og:description" content="${e(m.d)}"><meta property="og:url" content="${e(url)}"><meta property="og:image" content="${e(img)}"><meta name="twitter:card" content="${m.c||"summary_large_image"}"><meta name="twitter:title" content="${e(m.t)}"><meta name="twitter:description" content="${e(m.d)}"><meta name="twitter:image" content="${e(img)}">`;
+return new HTMLRewriter().on("head",{element(h){h.append(tags,{html:true})}}).transform(res)}
 export default{async fetch(request,env){
   const u=new URL(request.url);
   if(u.pathname==='/api/apply'&&request.method==='POST')return mail(request,env,'طلب توظيف جديد - موقع أولاد فلهوم');
@@ -82,5 +104,5 @@ export default{async fetch(request,env){
   if(u.pathname==='/api/reviews')return reviews(request,env,u);
   if(u.pathname==='/api/chat'&&request.method==='POST')return chat(request,env);
   if(u.pathname.startsWith('/api/'))return J({ok:false},404);
-  return env.ASSETS.fetch(request);
+  return page(request,env,u);
 }};
