@@ -333,3 +333,13 @@ footer small{display:block;text-align:center;margin-top:20px;opacity:1;color:#cf
 .pin img{aspect-ratio:1;overflow:hidden}
 .hero:before{background:linear-gradient(180deg,#0d1654b8 0%,#0d165466 46%,#0d165440 100%)}
 footer .hst small{margin:0;text-align:start;display:block;opacity:.85}footer .fsh small{margin:0;text-align:start;display:inline}
+
+/* real brand colors for social icons */
+footer .sc.fb{background:#1877f2;border-color:#4d94f5}footer .sc.ig{background:linear-gradient(45deg,#f9a03f,#e1306c 55%,#833ab4);border-color:#f06fa0}footer .sc.xx{background:#000;border-color:#555}footer .sc.yt{background:#f00;border-color:#ff6b6b}
+footer .sc:hover{filter:brightness(1.12);box-shadow:0 6px 16px #0006}
+/* smaller engineer credit */
+footer .cred a{font-size:10px;padding:3px 11px;gap:6px}footer .cred b{font-size:10.5px;letter-spacing:2px}footer .cred .cr1{font-size:10px}footer .cred .cw{padding:3px 8px;font-size:11px}
+/* nav never wraps inside items */
+nav a,.dd>button,.qh{white-space:nowrap}header nav{align-items:center}
+@media(max-width:400px){nav a,.dd>button{font-size:12.5px;padding:4px 8px}.qh{padding:4px 10px!important;font-size:12px}header nav{gap:2px}}
+@media(max-width:350px){header nav{flex-wrap:wrap;row-gap:4px}.qh{margin-inline-start:0!important}}
